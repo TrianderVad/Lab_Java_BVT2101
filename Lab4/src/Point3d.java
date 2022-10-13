@@ -1,4 +1,4 @@
-public class Point3d {
+public class Point3d extends Point2d{
     // Координаты Х, Y, Z
     private double xCoord;
     private double yCoord;
@@ -17,26 +17,14 @@ public class Point3d {
     }
 
     // Возрвращение координат X, Y, Z
-    public double getX() {
-        return xCoord;
-    }
 
-    public double getY() {
-        return yCoord;
-    }
 
     public double getZ() {
         return zCoord;
     }
 
     // Установка значения координат X, Y, Z
-    public void setX(double val) {
-        xCoord = val;
-    }
 
-    public void setY(double val) {
-        yCoord = val;
-    }
 
     public void setZ(double val) {
         zCoord = val;
@@ -45,11 +33,10 @@ public class Point3d {
 
     //Мето isEquals проверяет координаты на совпадение
     public static boolean isEquals(Point3d obj1, Point3d obj2) {
-        boolean checker = false;
         if ((obj1.xCoord == obj2.xCoord) && (obj1.yCoord == obj2.yCoord) && ((obj1.zCoord == obj2.zCoord))) {
-            checker = true;
+           return true;
         }
-        return checker;
+        return false;
     }
     // Метод distanceTo ищет расстояние между точками
     public static double distanceTo(Point3d obj1, Point3d obj2){

@@ -16,14 +16,11 @@ public class Primes {
 
      */
     public static boolean isPrime(int n) {
-        boolean checker = true;
         for (int i = 2; i < n; i++) {
             if (n % i == 0) {
-                checker = false;
-                break;
+                return false;
             }
         }
-        return checker;
+        return true;
     }
-
 }

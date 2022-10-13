@@ -4,31 +4,38 @@ public class Point2d {
     private double xCoord;
     // Координата Y
     private double yCoord;
+
     // Конструктор инициализации
-    public Point2d(double x, double y){
+    public Point2d(double x, double y) {
         xCoord = x;
         yCoord = y;
     }
+
     // Конструктор по умолчанию
-    public Point2d(){
-        this(0,0);
+    public Point2d() {
+        this(0, 0);
     }
+
     // Возрвращение координаты X
-    public double getX(){
+    public double getX() {
         return xCoord;
     }
+
     // Возрвращение координаты Y
-    public double getY(){
+    public double getY() {
         return yCoord;
     }
+
     // Установка значения координаты X
-    public void setX(double val){
+    public void setX(double val) {
         xCoord = val;
     }
+
     // Установка значения координаты Y
-    public void setY(double val){
+    public void setY(double val) {
         yCoord = val;
     }
+    /*
     public static void main (String[] args){
        Point2d myPoint = new Point2d();
        Point2d secondPoint = new Point2d();
@@ -45,5 +52,6 @@ public class Point2d {
         }
         return checker;
 
-    }
+     */
 }
+
