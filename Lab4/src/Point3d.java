@@ -1,13 +1,11 @@
 public class Point3d extends Point2d{
     // Координаты Х, Y, Z
-    private double xCoord;
-    private double yCoord;
+
     private double zCoord;
     // Конструктор инициализации
 
     public Point3d(double x, double y, double z) {
-        xCoord = x;
-        yCoord = y;
+        super(x,y);
         zCoord = z;
     }
 
@@ -33,14 +31,14 @@ public class Point3d extends Point2d{
 
     //Мето isEquals проверяет координаты на совпадение
     public static boolean isEquals(Point3d obj1, Point3d obj2) {
-        if ((obj1.xCoord == obj2.xCoord) && (obj1.yCoord == obj2.yCoord) && ((obj1.zCoord == obj2.zCoord))) {
+        if ((obj1.getX() == obj2.getX()) && (obj1.getY() == obj2.getY()) && ((obj1.zCoord == obj2.zCoord))) {
            return true;
         }
         return false;
     }
     // Метод distanceTo ищет расстояние между точками
     public static double distanceTo(Point3d obj1, Point3d obj2){
-        return  Math.pow(Math.pow(obj2.xCoord - obj1.xCoord, 2) + Math.pow(obj2.yCoord - obj1.yCoord, 2)
+        return  Math.pow(Math.pow(obj2.getX() - obj1.getX(), 2) + Math.pow(obj2.getY() - obj1.getY(), 2)
                 + Math.pow(obj2.zCoord - obj1.zCoord, 2),0.5);
     }
     /* Проверка
