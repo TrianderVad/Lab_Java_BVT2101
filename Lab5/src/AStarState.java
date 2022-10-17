@@ -54,11 +54,12 @@ public class AStarState
         Set open_waypoint_key = open_waypoint.keySet();
         Iterator iterator = open_waypoint_key.iterator();
         Waypoint bestWP = null;
-        float best_cost = 99999;
+        float best_cost = Float.MAX_VALUE;
+
+
 
         while (iterator.hasNext()){
             Location location = (Location)iterator.next();
-            System.out.println(open_waypoint.values());
             Waypoint waypoint = open_waypoint.get(location);
 
             float wp_total_cost = waypoint.getTotalCost();
@@ -86,6 +87,7 @@ public class AStarState
     {
         Location location = newWP.getLocation();
 
+
         if(open_waypoint.containsKey(location)){
             Waypoint currect_wp = open_waypoint.get(location);
             if(newWP.getPreviousCost() < currect_wp.getPreviousCost()){
@@ -107,6 +109,7 @@ public class AStarState
     /** Returns the current number of open waypoints. **/
     public int numOpenWaypoints()
     {
+
         return open_waypoint.size();
     }
 
@@ -117,9 +120,9 @@ public class AStarState
      **/
     public void closeWaypoint(Location loc)
     {
-        Waypoint waypoint = close_waypoint.get(loc);
-        close_waypoint.remove(loc);
-        open_waypoint.put(loc,waypoint);
+        Waypoint waypoint = open_waypoint.remove(loc);
+
+        close_waypoint.put(loc,waypoint);
 
         // TODO:  Implement.
     }
