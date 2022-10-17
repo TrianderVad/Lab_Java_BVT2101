@@ -43,9 +43,14 @@ public class AStarState
     }
 
     /**
-     * This method scans through all open waypoints, and returns the waypoint
-     * with the minimum total cost.  If there are no open waypoints, this method
-     * returns <code>null</code>.
+     * Если не осталось открытых позиций возращает null
+     * Задаем список ключей, потом задаем итератор
+     * Создаем переменнюу bestWP и присваеваем значение null
+     * Потом best_cost и присваем максималньое значение
+     * Перебираем список, если общая стоимость wp меньше best_cost, то
+     * bestWP = waypoint
+     * best_cost = wp_total_cost
+     * Возращаем best_wp
      **/
     public Waypoint getMinOpenWaypoint(){
         if (numOpenWaypoints() == 0) {
@@ -75,13 +80,8 @@ public class AStarState
     }
 
     /**
-     * This method adds a waypoint to (or potentially updates a waypoint already
-     * in) the "open waypoints" collection.  If there is not already an open
-     * waypoint at the new waypoint's location then the new waypoint is simply
-     * added to the collection.  However, if there is already a waypoint at the
-     * new waypoint's location, the new waypoint replaces the old one <em>only
-     * if</em> the new waypoint's "previous cost" value is less than the current
-     * waypoint's "previous cost" value.
+     * Это метод добляет новый waypoint в словарь open_waypoint
+     * Если цена предыдущих ходов меньше, чем у нынешнего wp
      **/
     public boolean addOpenWaypoint(Waypoint newWP)
     {
@@ -106,7 +106,7 @@ public class AStarState
     }
 
 
-    /** Returns the current number of open waypoints. **/
+    /** Метод возращает раз open_waypoint **/
     public int numOpenWaypoints()
     {
 
@@ -115,8 +115,7 @@ public class AStarState
 
 
     /**
-     * This method moves the waypoint at the specified location from the
-     * open list to the closed list.
+     * Этот метод удаляет позицию из open_waypoint и добавляет в close_waypoint
      **/
     public void closeWaypoint(Location loc)
     {
@@ -128,9 +127,9 @@ public class AStarState
     }
 
     /**
-     * Returns true if the collection of closed waypoints contains a waypoint
-     * for the specified location.
+     * Проверка, есть ли ключ позиции в словаре close_waypoint
      **/
+
     public boolean isLocationClosed(Location loc)
     {
         return close_waypoint.containsKey(loc);
