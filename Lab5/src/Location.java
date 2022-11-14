@@ -34,6 +34,9 @@ public class Location
     3. Транизитвность, если a == b, b == c, то a == c
     4. Неравенство с null
     5. Сравнивать объекты в своем классе
+    public boolean equals(Object x) {
+    return(this == y)
+    }
      */
     @Override
     public boolean equals(Object o) {
