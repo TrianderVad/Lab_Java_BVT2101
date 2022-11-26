@@ -1,11 +1,16 @@
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class FractalExplorer {
     /*
@@ -31,9 +36,31 @@ public class FractalExplorer {
     Метод создает GUI и показывает его, так же добавляет скрипты
      */
     public void createAndShowGUI() {
+        JComboBox<String> jComboBox = new JComboBox<String>();
+        jComboBox.addItem(Mandelbrot.class.toString());
+        jComboBox.addItem(Tricorn.class.toString());
+        jComboBox.addItem(BurningShip.class.toString());
+
+        JLabel jLabel = new JLabel("Fractals");
+        JPanel jPanel = new JPanel();
+        jPanel.add(jLabel);
+        jPanel.add(jComboBox);
+
+
+
+
         JFrame jFrame = new JFrame("Фракталы");
+        JPanel jPanel_s = new JPanel();
+        JButton jButton_2 = new JButton("Сохранить");
+        jButton_2.setActionCommand("save");
         JButton jButton = new JButton("Стереть");
+        jButton.setActionCommand("reset");
+
+        jPanel_s.add(jButton_2);
+        jPanel_s.add(jButton);
+
         ResButton resButton = new ResButton();
+        GetSelIt getSelIt = new GetSelIt();
         MouseListener mouseListener = new MouseListener();
 
 
@@ -41,9 +68,13 @@ public class FractalExplorer {
         ji_display.addMouseListener(mouseListener);
 
         jButton.addActionListener(resButton);
+        jButton_2.addActionListener(resButton);
+        jComboBox.addActionListener(getSelIt);
 
         jFrame.add(ji_display, BorderLayout.CENTER);
-        jFrame.add(jButton, BorderLayout.SOUTH);
+        jFrame.add(jPanel_s, BorderLayout.SOUTH);
+        jFrame.add(jPanel, BorderLayout.NORTH);
+
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -85,8 +116,29 @@ public class FractalExplorer {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            frac_gen.getInitialRange(rect);
-            drawFractal();
+            switch (e.getActionCommand()) {
+                case ("save"):
+                    JFileChooser chooser = new JFileChooser();
+                    FileFilter filter = new FileNameExtensionFilter("PNG Images", "png");
+                    chooser.setFileFilter(filter);
+                    chooser.setAcceptAllFileFilterUsed(false);
+                    int user_sec = chooser.showSaveDialog(ji_display);
+                    if(JFileChooser.APPROVE_OPTION == user_sec){
+                        File file = new File(chooser.getSelectedFile().toString()+".png");
+                        try {
+                            ImageIO.write(ji_display.b_image, "png",file);
+                        }catch (Exception exception){
+                            JOptionPane.showMessageDialog(ji_display, exception.getMessage(),
+                                    "Изображение не сохранено",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+
+                    break;
+                case ("reset"):
+                    frac_gen.getInitialRange(rect);
+                    drawFractal();
+                    break;
+            }
         }
     }
     /*
@@ -107,6 +159,27 @@ public class FractalExplorer {
 
         }
     }
+    // Смена фрактала
+    private class GetSelIt implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+             JComboBox box = (JComboBox) e.getSource();
+             switch ((String) box.getSelectedItem()){
+                 case ("class Tricorn"):
+                     frac_gen = new Tricorn();
+                     break;
+                 case ("class BurningShip"):
+                     frac_gen = new BurningShip();
+                     break;
+                 case ("class Mandelbrot"):
+                     frac_gen = new Mandelbrot();
+                     break;
+             }
+
+        }
+    }
+
     // Запуск приложения
 
     public static void main(String[] args) {
