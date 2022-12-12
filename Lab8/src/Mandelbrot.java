@@ -3,7 +3,6 @@ import java.awt.geom.Rectangle2D;
 public class Mandelbrot extends FractalGenerator {
 
     public static final int MAX_ITERATIONS = 2000; // Поле Макс значения итераций
-
     /*
     Метод определяет область комлексной плоскости
      */
@@ -15,7 +14,6 @@ public class Mandelbrot extends FractalGenerator {
         range.height = 3;
 
     }
-
     /*
     Метод реализует фрактал Мальденброта
      */
@@ -35,6 +33,10 @@ public class Mandelbrot extends FractalGenerator {
         }
         if (iter == MAX_ITERATIONS) return -1;
         return iter;
+    }
+    @Override
+    public String toString() {
+        return "Mandelbrot";
     }
 
 
